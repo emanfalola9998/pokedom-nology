@@ -1,6 +1,6 @@
 {
   "name": "pokedom-ts",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -9,8 +9,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "sass": "^1.64.2",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5",
-    "sass": "^1.64.2"
+    "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "gh-pages": "^6.1.1"
   }
 }
