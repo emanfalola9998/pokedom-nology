@@ -3,13 +3,20 @@ import pokemonArray from "./data/pokemon"
 import { Pokemon } from "./data/types";
 
 const cardContainer = document.querySelector(".card-container") as HTMLElement;
+const limitPokemonInput = document.querySelector(".limit") as HTMLInputElement;
 
 if (!cardContainer) throw new Error("something wrong with querySelector")
 
+limitPokemonInput.value = pokemonArray.length.toString()
+
 const handleCards = (pokemonArray: Pokemon[]) => {
-    pokemonArray.map((pokemon: Pokemon) => {
+    const limitPokemon = parseInt(limitPokemonInput.value);
+    cardContainer.innerHTML = '';
+
+    const filteredPokemonNames = pokemonArray.filter(name => name.includes(searchTerm))
+
+    pokemonArray.slice(0, limitPokemon).forEach((pokemon: Pokemon) => {
         const card = document.createElement('div');
-        if (!card) throw new Error("something wrong with querySelector")
         card.classList.add('card');
         card.innerHTML =  `
             <img class="card__image" src="${pokemon.sprite}" />
@@ -18,7 +25,7 @@ const handleCards = (pokemonArray: Pokemon[]) => {
                     ${pokemon.name}
                 </div>
                 <div class="card__text">
-                ${pokemon.types.length > 1 ? `${pokemon.name} (#${pokemon.id}) is a ${pokemon.types[0]} & ${pokemon.types[1]} type pokemon.` : `${pokemon.name} (#${pokemon.id}) is a ${pokemon.types[0]} type pokemon.`}
+                    ${pokemon.types.length > 1 ? `${pokemon.name} (#${pokemon.id}) is a ${pokemon.types[0]} & ${pokemon.types[1]} type pokemon.` : `${pokemon.name} (#${pokemon.id}) is a ${pokemon.types[0]} type pokemon.`}
                 </div>
             </div>
         `;
@@ -26,6 +33,11 @@ const handleCards = (pokemonArray: Pokemon[]) => {
     })
 }
 
-handleCards(pokemonArray)
+limitPokemonInput.addEventListener('input', () => {
+    handleCards(pokemonArray);
+});
+
+
+
 
 
