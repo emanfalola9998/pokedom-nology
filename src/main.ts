@@ -4,18 +4,23 @@ import { Pokemon } from "./data/types";
 
 const cardContainer = document.querySelector(".card-container") as HTMLElement;
 const limitPokemonInput = document.querySelector(".limit") as HTMLInputElement;
+const pokemonSearch = document.querySelector(".search") as HTMLInputElement;
 
 if (!cardContainer) throw new Error("something wrong with querySelector")
 
-limitPokemonInput.value = pokemonArray.length.toString()
+// limitPokemonInput.value = pokemonArray.length.toString()
+
+
+
 
 const handleCards = (pokemonArray: Pokemon[]) => {
     const limitPokemon = parseInt(limitPokemonInput.value);
+    const pokemonSearched = pokemonSearch.value
     cardContainer.innerHTML = '';
 
-    const filteredPokemonNames = pokemonArray.filter(name => name.includes(searchTerm))
+    const filteredPokemonNames = pokemonArray.filter(name => name.name.startsWith(pokemonSearched))
 
-    pokemonArray.slice(0, limitPokemon).forEach((pokemon: Pokemon) => {
+    filteredPokemonNames.slice(0, limitPokemon).forEach((pokemon: Pokemon) => {
         const card = document.createElement('div');
         card.classList.add('card');
         card.innerHTML =  `
@@ -36,7 +41,6 @@ const handleCards = (pokemonArray: Pokemon[]) => {
 limitPokemonInput.addEventListener('input', () => {
     handleCards(pokemonArray);
 });
-
 
 
 
