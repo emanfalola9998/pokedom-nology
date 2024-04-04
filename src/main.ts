@@ -16,16 +16,12 @@ const handleCards = (pokemonArray: Pokemon[]) => {
     cardContainer.innerHTML = '';
     
     const filteredPokemonNames = pokemonArray.filter(name => name.name.startsWith(pokemonSearchedName))
-    console.log('filteredPokemonNames', filteredPokemonNames);
     
     const filteredPokemonTypes = filteredPokemonNames.filter(type =>
         type.types.length > 1 ?
         (type.types[0].startsWith(pokemonSearchedType) || type.types[1].startsWith(pokemonSearchedType)) :
         type.types[0].startsWith(pokemonSearchedType)
-    );
-    
-    console.log('filteredPokemonTypes: ', filteredPokemonTypes);
-    
+    );    
 
     filteredPokemonTypes.slice(0, limitPokemon).forEach((pokemon: Pokemon) => {
         const card = document.createElement('div');
