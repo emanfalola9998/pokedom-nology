@@ -4,23 +4,30 @@ import { Pokemon } from "./data/types";
 
 const cardContainer = document.querySelector(".card-container") as HTMLElement;
 const limitPokemonInput = document.querySelector(".limit") as HTMLInputElement;
-const pokemonSearch = document.querySelector(".search") as HTMLInputElement;
+const pokemonSearchByName = document.querySelector(".search") as HTMLInputElement;
+const pokemonSearchByType = document.querySelector(".type") as HTMLInputElement;
 
-if (!cardContainer) throw new Error("something wrong with querySelector")
-
-// limitPokemonInput.value = pokemonArray.length.toString()
-
-
-
+if (!cardContainer ) throw new Error("something wrong with querySelector")
 
 const handleCards = (pokemonArray: Pokemon[]) => {
     const limitPokemon = parseInt(limitPokemonInput.value);
-    const pokemonSearched = pokemonSearch.value
+    const pokemonSearchedName = pokemonSearchByName.value
+    const pokemonSearchedType = pokemonSearchByType.value
     cardContainer.innerHTML = '';
+    
+    const filteredPokemonNames = pokemonArray.filter(name => name.name.startsWith(pokemonSearchedName))
+    console.log('filteredPokemonNames', filteredPokemonNames);
+    
+    const filteredPokemonTypes = filteredPokemonNames.filter(type =>
+        type.types.length > 1 ?
+        (type.types[0].startsWith(pokemonSearchedType) || type.types[1].startsWith(pokemonSearchedType)) :
+        type.types[0].startsWith(pokemonSearchedType)
+    );
+    
+    console.log('filteredPokemonTypes: ', filteredPokemonTypes);
+    
 
-    const filteredPokemonNames = pokemonArray.filter(name => name.name.startsWith(pokemonSearched))
-
-    filteredPokemonNames.slice(0, limitPokemon).forEach((pokemon: Pokemon) => {
+    filteredPokemonTypes.slice(0, limitPokemon).forEach((pokemon: Pokemon) => {
         const card = document.createElement('div');
         card.classList.add('card');
         card.innerHTML =  `
@@ -36,12 +43,20 @@ const handleCards = (pokemonArray: Pokemon[]) => {
         `;
         cardContainer.appendChild(card);
     })
+
 }
 
 limitPokemonInput.addEventListener('input', () => {
     handleCards(pokemonArray);
 });
 
+pokemonSearchByName.addEventListener('input',  () => {
+    handleCards(pokemonArray);
+});
+
+pokemonSearchByType.addEventListener('input', () => {
+    handleCards(pokemonArray);
+});
 
 
 
