@@ -18,7 +18,7 @@ const handleCards = (pokemonArray: Pokemon[]) => {
                     ${pokemon.name}
                 </div>
                 <div class="card__text">
-                ${pokemon.types.length > 1 ? `${pokemon.name} (#${pokemon.id}) is a ${pokemon.types[0]} & ${pokemon.types[1]} pokemon` : `${pokemon.name} (#${pokemon.id}) is a ${pokemon.types[0]} pokemon`}
+                ${pokemon.types.length > 1 ? `${pokemon.name} (#${pokemon.id}) is a ${pokemon.types[0]} & ${pokemon.types[1]} type pokemon.` : `${pokemon.name} (#${pokemon.id}) is a ${pokemon.types[0]} type pokemon.`}
                 </div>
             </div>
         `;
